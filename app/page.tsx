@@ -3,6 +3,7 @@ import style from './page.module.css';
 import ImageSlideshow from '@/components/images/image-slideshow';
 
 export default function Home() {
+  console.log('Home Page - Server Side Rendering, We can see this one the terminal.')
   return (
     <>
       {/*
