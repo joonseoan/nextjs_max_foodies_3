@@ -1,3 +1,7 @@
+// It is the most child component
+// from the `main-header` component.
+// `use client` should be implemented in the most child component
+
 'use client';
 
 import Link from "next/link";
@@ -11,11 +15,16 @@ export interface NavLinkProps {
 }
 
 function NavLink({ href, children }: NavLinkProps) {
+  // [IMPORTANT]
+  // `usePathname` can be used only for `use client`
   const path = usePathname();
 
   return (
     <Link href={href}
-      className={ path.startsWith('/community') ?  `${style.link} ${style.active}` : `${style.link}` }
+      className={ 
+        // style.active should be the second class name.
+        `${style.link} ${path === href ? style.active : undefined}`
+      }
     >
       {children}
     </Link>

@@ -6,8 +6,9 @@
   border-radius: 0.5rem;
 }
 
-.link a:hover,
-.link a:active {
+.link:hover,
+/* :active is a CSS pseudo-class that triggers only while the mouse button is actively being clicked down. */
+.link:active {
   background: linear-gradient(90deg, #ff8a05, #f9b331);
   background-clip: text;
   -webkit-background-clip: text;
@@ -15,9 +16,16 @@
   text-shadow: 0 0 18px rgba(248, 190, 42, 0.8);
 }
 
+/* .active is a custom CSS class applied conditionally by React when path === href. */
 .active {
   background: linear-gradient(90deg, #ff8a05, #f9b331);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* 
+.link.active ---> <a class="link active">
+.link .active ---> <div class="link"><span class="active">...</span></div>
+.link:active ---> <a class="link"> (mouse button held down) ---> An element with class link while the user is actively clicking down on it (CSS pseudo-class).
+*/
