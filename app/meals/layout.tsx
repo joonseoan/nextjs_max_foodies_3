@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 
 // [IMPORTANT]
 // Also, this MealsLayout wraps the all the nested pages in this Meals folder.
-function MealsLayout({ children }: ReactNode) {
+function MealsLayout({ children }: { children: ReactNode }) {
   return <>
     {/* <p>Meals Header</p> */}
     {children}

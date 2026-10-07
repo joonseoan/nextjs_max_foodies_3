@@ -47,11 +47,21 @@ function MainHeader() {
       <Link className={style.logo} href="/">
         {/* <img src={logoImage.src} alt="main-header-logo" />  */}
         {/* 
-          src here in Image from NextJs supports the object.
+          `src` here in Image from NextJs supports the object.
+          
           [IMPORTANT]
           In our scenario, we do not need to implement lazy loading
           mechanism becaus this image should be rendered at the top
           of the browser.
+
+          [IMPORTANT]
+          In this case when we are importing the image from assets or the local project,
+          NextJS already has the image information and then it can implement width and height in existing
+          information. Then when the project becomes built,
+          NextJS can utilize the image obj information, width and height in build time.  
+          However when the image information is received from the DB which means the dynamically rendered images
+          NextJS can't resolve the image information. So it is not aware of the width and height. In this case
+          we need to use `fill` property. See `meal-item.tsx.`
         */}
         <Image src={logoImage} alt="main-header-logo"  priority />
         Next Level Food
