@@ -1,10 +1,20 @@
 
 import Link from 'next/link';
 import style from './page.module.css';
-import MealsGrid from '@/components/meals/meals-grid';
+import MealsGrid, { MealProps } from '@/components/meals/meals-grid';
+import { getMeals } from '@/simple-backend/meals';
 
+// [IMPORTANT]
+// We can use `async` only in the server component.
+async function MealsPage() {
+  // Please make sure the nextJS has a backend already.
+  // For the server component, we do not use useEffect.
+  const meals = await getMeals() as MealProps[];
+  console.log(meals);
 
-function MealsPage() {
+  // Set up initdb.ts after install better-sqllite3
+  // In terminal, run `node initdb.ts`
+  // Then we can get `meals.db` file.
   return(
     <>
       <header className={style.header}>
@@ -22,7 +32,7 @@ function MealsPage() {
         </p>
       </header>
       <main className={style.main}>
-        <MealsGrid meals={[]} />
+        <MealsGrid meals={meals} />
       </main>
     </>
   );

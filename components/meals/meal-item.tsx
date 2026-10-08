@@ -25,6 +25,7 @@ export default function MealItem({ title, slug, image, summary, creator }: MealP
             src={image}
             alt={title}
             fill
+            // sizes='22'
             // We can use width and height manually.
             // width={}
             // height={} 
