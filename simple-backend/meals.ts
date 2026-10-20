@@ -7,6 +7,6 @@ export async function getMeals() {
   // 'resolve' is a function!
   // `await` because it does not exist without return.
   // Basically, it needs to use `await`
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   return db.prepare('SELECT * FROM meals').all();
 }
