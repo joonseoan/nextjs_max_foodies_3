@@ -2,13 +2,24 @@ import Image from 'next/image';
 import style from './page.module.css';
 import { getMeal } from '@/simple-backend/meals';
 import { MealProps } from '@/components/meals/meals-grid';
+import { notFound } from 'next/navigation';
 
 
 async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
   const { slug } = await params;
   // console.log('slug: ', slug);
   const meal = await getMeal(slug) as MealProps;
-  meal.instructions = meal.instructions.replace(/\n/g, '<br>')
+  
+  if (!meal) {
+    // [IMPORTANT]
+    // IT IS FROM NEXTJS
+    // It still calls the `notFound tsx` but it does not show error!
+    // [IMPORTANT]
+    // It calls *** closest *** not found page or error page
+    notFound();
+  }
+
+  meal.instructions = meal.instructions.replace(/\n/g, '<br>');
 
   return <>
     <header className={style.header}>
