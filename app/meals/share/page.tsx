@@ -2,6 +2,18 @@ import classes from './page.module.css';
 import ImagePicker from '@/components/meals/image-picker';
 
 export default function ShareMealPage() {
+  // [IMPORTANT]
+  // Create action or event in the server, not client!
+  // 1. add `async` in the function.
+  // 2. add 'use server' inside the server scope.
+  // Why the server event function?
+  // It is provided by React, not by NextJS.
+  // 
+  async function shareMeal() {
+    'use server'
+
+  }
+
   return (
     <>
       <header className={classes.header}>
