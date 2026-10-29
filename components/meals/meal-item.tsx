@@ -9,7 +9,7 @@ export default function MealItem({ title, slug, image, summary, creator }: MealP
     <article className={classes.meal}>
       <header>
         <div className={classes.image}>
-          {/* 
+          {/*
             fill: dynamically fill the image here.
             the image value is from db
             and their image is from `public` folder in this NextJs project.
@@ -22,7 +22,7 @@ export default function MealItem({ title, slug, image, summary, creator }: MealP
             BTW, we can also manually implement width and height.
           */}
           <Image
-            src={image}
+            src={image as unknown as string}
             alt={title}
             fill
             // sizes='22'

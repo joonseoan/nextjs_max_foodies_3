@@ -24,7 +24,7 @@ async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
   return <>
     <header className={style.header}>
       <div className={style.image}>
-        <Image src={meal.image} alt={meal.title} fill/>
+        <Image src={meal.image as unknown as string} alt={meal.title} fill/>
       </div>
       <div className={style.headerText}>
         <h1>{meal.title}</h1>
