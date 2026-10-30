@@ -4,8 +4,21 @@
 import classes from './page.module.css';
 import ImagePicker from '@/components/meals/image-picker';
 import { shareMeal } from '@/actions/meal-create';
+import MealFormSubmit from '@/components/meals/meal-form-submit';
+// import { , useFormStatus } from 'react-dom';
 
 export default function ShareMealPage() {
+  // [IMPORTANT] It is from `react-dom`!
+  // not from react and not from nextjs
+  // For the form submission
+  // It works only for client side!
+  // Please note that `shareMeal` function works in the server.
+  // This function works in the client.
+  // It is why we need to manage the server and the client side function
+  // by separating the file.
+  // const state = useFormStatus();
+
+
   // 2) However, what if we need to convert this component to the client component?
   // what if we need to use special client tools here?
   // For this reason, we can separate the action in another file.
@@ -83,7 +96,8 @@ export default function ShareMealPage() {
           {/* name is a key to get formData.get('image') */}
           <ImagePicker label="Your image" name='image' />
           <p className={classes.actions}>
-            <button type="submit">Share Meal</button>
+            <MealFormSubmit />
+            {/* <button type="submit">Share Meal</button> */}
           </p>
         </form>
       </main>

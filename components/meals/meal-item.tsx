@@ -22,13 +22,13 @@ export default function MealItem({ title, slug, image, summary, creator }: MealP
             BTW, we can also manually implement width and height.
           */}
           <Image
-            src={image as unknown as string}
+            src={image}
             alt={title}
             fill
             // sizes='22'
             // We can use width and height manually.
             // width={}
-            // height={} 
+            // height={}
           />
         </div>
         <div className={classes.headerText}>

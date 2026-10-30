@@ -9,7 +9,7 @@ async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
   const { slug } = await params;
   // console.log('slug: ', slug);
   const meal = await getMeal(slug) as MealProps;
-  
+
   if (!meal) {
     // [IMPORTANT]
     // IT IS FROM NEXTJS
@@ -24,7 +24,7 @@ async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
   return <>
     <header className={style.header}>
       <div className={style.image}>
-        <Image src={meal.image as unknown as string} alt={meal.title} fill/>
+        <Image src={meal.image} alt={meal.title} fill/>
       </div>
       <div className={style.headerText}>
         <h1>{meal.title}</h1>

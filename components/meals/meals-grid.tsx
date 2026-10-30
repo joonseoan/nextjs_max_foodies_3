@@ -1,3 +1,4 @@
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import MealItem from './meal-item';
 import style from './meals-grid.module.css';
 
@@ -5,7 +6,7 @@ export interface MealProps {
   id: string;
   title: string;
   slug: string;
-  image: File;
+  image: string | StaticImport ;
   summary: string;
   creator: string;
   creator_email: string;

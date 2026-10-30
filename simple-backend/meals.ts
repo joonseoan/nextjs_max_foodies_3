@@ -3,6 +3,7 @@ import { MealProps } from '@/components/meals/meals-grid';
 import sql from 'better-sqlite3';
 import slugify from 'slugify';
 import xss from 'xss';
+import { error } from 'node:console';
 
 const db = sql('meals.db');
 
@@ -29,12 +30,34 @@ export async function saveMeal(meal: MealProps) {
   meal.instructions = xss(meal.instructions);
 
   // store image file to `public` folder
-  const extension = meal.image.name.split('.').pop();
+  const mealImage = meal.image as unknown as File;
+  const extension = mealImage.name.split('.').pop();
   console.log('extension: ', extension)
   const fileName = `${meal.slug}.${extension}`;
 
   const stream = fs.createWriteStream(`public/images/${fileName}`);
-  const bufferImage = await meal.image.arrayBuffer();
+  const bufferImage = await mealImage.arrayBuffer();
 
-  stream.write(Buffer.from(bufferImage));
+  stream.write(Buffer.from(bufferImage), (error) => {
+    if (error) {
+      throw new Error('Saving image failed');
+    }
+
+    // we do not need to add `public` because 'public/images' is default in nextjs.
+    meal.image = `/images/${fileName}`;
+
+    db.prepare(`
+      INSERT INTO meals
+        (title, summary, instructions, creator, creator_email, image, slug)
+      VALUES(
+        @title,
+        @summary,
+        @instructions,
+        @creator,
+        @creator_email,
+        @image,
+        @slug
+      )
+    `).run(meal);
+  });
 }
