@@ -5,15 +5,15 @@
 // [IMPORTANT]
 // It covers entire `meals` page.
 
-function Error(prop: any) {
+// function Error(prop: any) {
+  // console.log('prop: ', prop);
   // prop:
   // Object {
   //  error: Error,  // contains the message from the backend or throw new Error
   //  reset: reset(),
   //  retry: retry()
   // }
-  console.log('prop: ', prop);
-
+function Error() {
   // [IMPORTANT]
   // The style is from `global.css` under the app folder
   return <main className="error">

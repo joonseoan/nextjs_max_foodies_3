@@ -4,6 +4,27 @@ import { getMeal } from '@/simple-backend/meals';
 import { MealProps } from '@/components/meals/meals-grid';
 import { notFound } from 'next/navigation';
 
+// For the dynamic page, the metadata is different.
+// export const metadata = {
+//   title: 'All Meals',
+//   description: 'Browse the delicious meals shared by our vibrant community',
+// };
+
+// [IMPORTANT]
+// must use `async function generateMetadata()` for NextJS looks for this named function.
+export async function generateMetadata({ params }: PageProps<"/meals/[slug]">) {
+  const { slug } = await params;
+  const meal = await getMeal(slug) as MealProps;
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary
+  };
+}
 
 async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
   const { slug } = await params;
@@ -43,7 +64,6 @@ async function DynamicMeals({ params }: PageProps<"/meals/[slug]">) {
           __html: meal.instructions,
         }}
       >
-        
       </p>
     </main>
   </>

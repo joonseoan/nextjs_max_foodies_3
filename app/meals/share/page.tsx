@@ -1,13 +1,30 @@
 // No error with the separate server side action
-// 'use client';
+'use client';
 
 import classes from './page.module.css';
 import ImagePicker from '@/components/meals/image-picker';
 import { shareMeal } from '@/actions/meal-create';
 import MealFormSubmit from '@/components/meals/meal-form-submit';
+import { useActionState } from 'react';
 // import { , useFormStatus } from 'react-dom';
 
+export type ShareMealState = {
+  message: string | null,
+}
+
 export default function ShareMealPage() {
+  // managing the state in this component like `useState`.
+  // And particularly it manages the state in <form />
+  // and helps server side 'action'! property
+
+  // { message: null } is the default initial state value.
+  // The updated value is from return value of `shareMeal`
+  // formAction is for action attribute of <form />
+  const [formState, formAction] = useActionState(shareMeal, { message: null });
+
+  console.log('formState: ', formState)
+
+
   // [IMPORTANT] It is from `react-dom`!
   // not from react and not from nextjs
   // For the form submission
@@ -64,7 +81,7 @@ export default function ShareMealPage() {
           // In the previous standard way, action attribute indicates "/some-path"
           // action="/some-path"
           // However, in NextJS, its value is a function.
-          action={shareMeal}
+          action={formAction}
         >
           <div className={classes.row}>
             <p>
@@ -73,7 +90,7 @@ export default function ShareMealPage() {
             </p>
             <p>
               <label htmlFor="email">Your email</label>
-              <input type="email" id="email" name="email" required />
+              <input type="email" id="email" name="email" />
             </p>
           </div>
           <p>
@@ -95,6 +112,7 @@ export default function ShareMealPage() {
           </p>
           {/* name is a key to get formData.get('image') */}
           <ImagePicker label="Your image" name='image' />
+          {formState.message && <p>{formState.message}</p>}
           <p className={classes.actions}>
             <MealFormSubmit />
             {/* <button type="submit">Share Meal</button> */}
